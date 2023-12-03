@@ -43,6 +43,17 @@ router.get('/add', (req, res) => {
     })
 })
 
+router.get('/new-category', (req, res) => {
+    db.getCategories()
+    .then(data => {
+        res.render('admin/new-categorys', { categories: data });
+    })
+    .catch(err => {
+        console.log(err);
+        res.render('admin/new-categorys', { categories: [] });
+    })
+})
+
 router.get('/edit/:id', (req, res) => {
     const id = req.params.id;
     console.log(id)
