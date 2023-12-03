@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundPlex</title>
+    <%- include('home/tags/links') %>
+    <link rel="stylesheet" href="/stylesheets/home.css">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+
+<body>
+    <!-- MAIN CONTENT -->
+    <main id="index-one">
+        <%- include('home/tags/preloader') %>
+        
+        <header style="background: none;">
+        
+            <!-- NAVIGATION -->
+            <nav class="navigation">
+                <div class="logo hover" style="width: 40%;display: flex;justify-content: space-between;align-items: center;">
+                    <a href="#" class="text reveal title">SoundPlex</a>
+                </div>
+                <div class="menu-bar hover" style="justify-content: space-around; width: 30%;">
+                    <div class="menu-bar-name text" style="width: 100%;">
+                        <ul class="navigation-ul">
+                            <li><a href="/">Inicio</a></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- NAVIGATION -->
+        
+            <!-- HEADPHONE IMG -->
+            <div class="headphone img text">
+                <img src="/images/headphone.png" class="text" alt="headphone">
+            </div>
+            <!-- HEADPHONE IMG -->            
+            <!-- NEW RELEASE -->
+            <div class="new-release img text" style="display: none;">
+        
+                <button class="close hover" type="button">X</button>
+                <img src="/images/album-thumbnail-one.jpg" alt="new-release">
+                    <div class="song-details">
+                   
+                    </div>
+                </div>
+        
+        
+            </div>
+            <!-- NEW RELEASE -->
+        
+        </header>
+            
+        <h1 class="text">SoundPlex</h1>
+        <h3 class="text"><i>Iniciar Sesión</i></h3>
+
+        <div class="new-release img text login">
+        
+            <form action="/login" method="post">
+                <label for="email">Correo</label>
+                <input type="email" name="email"  required>
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" required>
+                <input type="submit" value="Iniciar" class="mouse hover">
+                <a href="#" class="sigin">Registrarse</a>
+
+            </form>
+        
+        
+        </div>
+
+    </main>
+
+    <%- include('home/tags/footer') %>
+
+</body>
+
+</html>

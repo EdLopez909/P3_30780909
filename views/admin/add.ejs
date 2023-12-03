@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundPlex | Agregar</title>
+    <%- include('tags/links') %>
+        <link rel="stylesheet" href="/stylesheets/home.css">
+        <link rel="stylesheet" href="/stylesheets/admin.css">
+</head>
+
+<body>
+    <!-- MAIN CONTENT -->
+    <main id="index-one">
+
+        <!-- PRELOADER -->
+        <%- include('tags/preloader') %>
+            <!-- HEADER -->
+            <%- include('tags/header-nav') %>
+                <!-- NAVIGATION CONTENT -->
+                <%- include('tags/menu-content') %>
+
+                    <form action="admin/add/" method="post" class="container-products form-edit" ref="uploadForm" id="uploadForm" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="">
+                            <div>
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" value="">
+                            </div>
+                            <div>
+                                <label for="description">Descripción</label>
+                                <input type="text" name="description" value="">
+                            </div>
+                            <div>
+                                <label for="model">Marca</label>
+                                <input type="text" name="model" value="">
+                            </div>
+                            <div>
+                                <label for="count">Cantidad</label>
+                                <input type="number" name="count" value="">
+                            </div>
+                            <div>
+                                <label for="price">Precio</label>
+                                <input type="text" name="price" value="" pattern="\d[0-9].\d{2}">
+                            </div>
+                            <div>
+                                <label for="code">Código</label>
+                                <input type="text" name="count" value="" pattern="[0-9]">
+                            </div>
+
+                            <div>
+                                <label for="image">Agregar una imagen</label>
+                                <div>
+                                    <input class="btn btn-lg btn-primary" type="file" name="image">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="category">Categoría</label>
+                                <select id="category">
+                                    <% categories.forEach(category=> { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.name %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                                <input type="hidden" name="category" value="">
+                            </div>
+                                <div>
+                                    <input class="mouse" type="submit" value="Agregar">
+                                </div>
+                    </form>
+
+    </main>
+
+    <%- include('tags/footer') %>
+
+</body>
+
+</html>

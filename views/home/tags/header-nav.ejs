@@ -1,0 +1,80 @@
+<!-- HEADER -->
+<header>
+
+    <!-- NAVIGATION -->
+    <nav class="navigation">
+        <div class="logo hover" style="width: 40%;display: flex;justify-content: space-between;align-items: center;">
+            <a href="#" class="text reveal title">SoundPlex</a>
+            <div class="m-dropdown">
+                <div class="e-button text reveal" >
+                    Categorías
+                </div>
+                <ul class="e-list" style="display: none;">
+                    <% categories.forEach(category =>{ %>
+                        <li id="category"><a href="#<%= category.name %>"><%= category.name %></a></li>
+                    <% }); %>
+                    <li id="category"><a href="#all">Todos</a></li>
+                </ul>
+            </div>
+            <div style="
+            width: 300px;
+            height: 38px;
+        ">
+                <div class="container">
+                    <input type="text" placeholder="Buscar...">
+                    <div class="search"></div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-bar hover" style="justify-content: space-around; width: 30%;">
+            <div class="menu-bar-name text" style="width: 100%;">
+                <ul class="navigation-ul">                    
+                    <li><a href="/login" >Iniciar Sesión</a></li>                      
+                    <li><a href="#">|</a></li>
+                    <li><a href="#" class="sigin">Registrarse</a></li>
+                    <!--<li><a href="/"><i class="fi fi-sr-user"></i></a></li>
+                    <li><a href="/about"><i class="fi fi-sr-shopping-cart"></i></a></li>-->
+                    <li></li>
+                </ul>
+            </div>           
+            <div class="menu-bar-lines text">
+                <div class="menu-bar-line"></div>
+                <div class="menu-bar-line"></div>
+            </div>
+        </div>
+    </nav>
+    <!-- NAVIGATION -->
+
+    <!-- HEADPHONE IMG -->
+    <div class="headphone img text">
+        <img src="/images/headphone.png" class="text" alt="headphone">
+    </div>
+    <!-- HEADPHONE IMG -->
+
+    <!-- NEW RELEASE -->
+    <div class="new-release img text">
+
+        <button class="close hover" type="button">X</button>
+        <img src="/images/album-thumbnail-one.jpg" alt="new-release">
+        <div class="song-details">
+            <div class="song-name">Blinding Lights</div>
+            <div class="singer-name">Arlo Brown Ft. Sza</div>
+            <div class="music-player">
+                <div class="play-song">
+                    <img src="/images/play.png" alt="play" data-song="darkfire" class="hover">
+
+                    <audio src="music/The-Weeknd-Blinding-Lights-_Lyrics_.ogg" data-audio="darkfire"></audio>
+                    <!--LINK AND NAME OF AUDIO YOU WANT TO PLAY-->
+                </div>
+                <div class="all-songs">
+                    <a href="/songs" title="All Songs"><i class="gg-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- NEW RELEASE -->
+
+</header>
+<!-- HEADER -->

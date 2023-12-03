@@ -1,0 +1,143 @@
+body{
+    background: url(/images/blog-bg.jpg); /*HEADER BACKGROUND IMAGE*/
+    background-position: center;
+    background-size: cover;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    gap: 20px;
+}
+
+#index-one header {
+    background: none;
+    height: 20vh;
+}
+
+.container-products {
+    width: 100%;
+    height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    background-color:#fff8dc57;
+    border-radius: 10px;
+}
+.products-nav {
+    display: flex;
+    padding: 2px;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.818);
+    font-family: Josefin sans;
+    font-size: 1.2em;
+    font-weight: bolder;
+    border-radius: 10px 10px 0px 0;
+}
+
+.products-nav ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.scrolling {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.products {
+    display: flex;
+    justify-content: space-between;
+    
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    font-family: Josefin sans;
+    font-size: 1.2em;
+    background-color: rgba(43, 113, 226, 0.57);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.products ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: .5s ease;
+    padding: 0 10px;
+}
+
+.products ul:hover {
+    background-color: rgba(255, 255, 255, 0.818);
+    color: black;
+    transition: .5s ease;
+}
+
+.products ul li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 5em;
+    min-width: 3em;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 3em;
+}
+
+.edit:hover {
+    color: rgb(0, 11, 130);
+}
+
+.delete:hover {
+    color: rgb(255, 65, 71);
+}
+
+.form-edit{
+    align-items:  center;
+    gap: 10px;
+}
+
+.form-edit img {
+    min-width: 50px;
+    max-width: 80px;
+}
+
+.form-edit div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    font-family: Josefin sans;    
+    width: 50%;
+}
+
+.form-edit div input {
+    width: 100%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 1em;
+    font-family: Josefin sans;
+}
+
+@media screen and (max-width: 700px){
+    .form-edit div{
+        width: 100%;
+    }
+}

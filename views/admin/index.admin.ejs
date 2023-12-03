@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundPlex | Administrador</title>
+    <%- include('tags/links') %>
+        <link rel="stylesheet" href="/stylesheets/home.css">
+        <link rel="stylesheet" href="/stylesheets/admin.css">
+</head>
+
+<body>
+    <!-- MAIN CONTENT -->
+    <main id="index-one">
+
+        <!-- PRELOADER -->
+        <%- include('tags/preloader') %>
+        <!-- HEADER -->
+        <%- include('tags/header-nav') %>
+        <!-- NAVIGATION CONTENT -->
+        <%- include('tags/menu-content') %>
+                    
+        <section class="container-products">
+            <nav class="products-nav">
+                <ul>
+                    <li>Código</li>
+                    <li>Nombre</li>
+                    <li>Cantidad</li>
+                    <li>Opciones</li>
+                </ul>
+            </nav>
+            <div class="scrolling">
+            <% products.forEach(product => { %>
+                <div class="products" title="<%= product.code %> <%= product.name %> <%= product.count %>">
+                    <ul class="hover">
+                        <li><%= product.code %></li>
+                        <li><%= product.name %></li>
+                        <li><%= product.count %></li>
+                        <li class="options">
+                            <a href="/admin/edit/<%= product.id %>" class="edit"><i class="fi fi-sr-pencil"></i></a>
+                            <a href="/admin/delete/<%= product.id %>"class="delete"><i class="fi fi-sr-trash"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <% }); %>
+            </div>
+        </section>
+                
+    </main>
+
+    <%- include('tags/footer') %>
+
+</body>
+
+</html>
