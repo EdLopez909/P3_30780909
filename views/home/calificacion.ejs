@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundPlex | Calificacion</title>
+    <%- include('tags/links') %>
+        <link rel="stylesheet" href="/stylesheets/home.css">
+        <link rel="stylesheet" href="/stylesheets/admin.css">
+        <style>
+            .container {
+                width: 300px;
+                padding: 16px;
+                background-color: white;
+            }
+
+            input[type=text],
+            input[type=number] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                background: #f1f1f1;
+            }
+
+            input[type=text]:focus,
+            input[type=number]:focus {
+                background-color: #ddd;
+                outline: none;
+            }
+
+            .submit {
+                background-color: #4CAF50;
+                color: white;
+                padding: 16px 20px;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                opacity: 0.9;
+            }
+
+            .submit:hover {
+                opacity: 1;
+            }
+        </style>
+</head>
+
+<body>
+    <!-- MAIN CONTENT -->
+    <main id="index-one">
+
+        <!-- PRELOADER -->
+        <%- include('tags/preloader') %>
+            <!-- HEADER -->
+            <!-- HEADER -->
+<header>
+
+    <!-- NAVIGATION -->
+    <nav class="navigation">
+        <div class="logo hover" style="width: 40%;display: flex;justify-content: space-between;align-items: center;">
+            <a href="#" class="text reveal title">SoundPlex</a>
+            <div class="m-dropdown">
+                <div class="e-button text reveal" >
+                    Categorías
+                </div>
+                <ul class="e-list" style="display: none;">
+                    <% categories.forEach(category =>{ %>
+                        <li id="category"><a href="#<%= category.name %>"><%= category.name %></a></li>
+                    <% }); %>
+                    <li id="category"><a href="#all">Todos</a></li>
+                </ul>
+            </div>
+           
+        </div>
+        <div class="menu-bar hover" style="justify-content: space-around; width: 30%;">
+            <div class="menu-bar-name text" style="width: 100%;">
+                <ul class="navigation-ul">                    
+                    <li><a href="/login" >Iniciar Sesión</a></li>                      
+                    <li><a href="#">|</a></li>
+                    <li><a href="#" class="sigin">Registrarse</a></li>
+                    <!--<li><a href="/"><i class="fi fi-sr-user"></i></a></li>
+                    <li><a href="/about"><i class="fi fi-sr-shopping-cart"></i></a></li>-->
+                    <li></li>
+                </ul>
+            </div>           
+            <div class="menu-bar-lines text">
+                <div class="menu-bar-line"></div>
+                <div class="menu-bar-line"></div>
+            </div>
+        </div>
+    </nav>
+    <!-- NAVIGATION -->
+    
+    <!-- HEADPHONE IMG -->
+    <div class="headphone img text">
+        <img src="/images/headphone.png" class="text" alt="headphone">
+    </div>
+    <!-- HEADPHONE IMG -->
+
+
+<div class="new-release img text">
+        
+        <button class="close hover" type="button">X</button>
+        <img src="/images/album-thumbnail-one.jpg" alt="new-release">
+        <div class="song-details">
+            <div class="song-name">Blinding Lights</div>
+            <div class="singer-name">Arlo Brown Ft. Sza</div>
+            <div class="music-player">
+                <div class="play-song">
+                    <img src="/images/play.png" alt="play" data-song="darkfire" class="hover">
+
+                    <audio src="music/The-Weeknd-Blinding-Lights-_Lyrics_.ogg" data-audio="darkfire"></audio>
+                    <!--LINK AND NAME OF AUDIO YOU WANT TO PLAY-->
+                </div>
+                <div class="all-songs">
+                    <a href="/songs" title="All Songs"><i class="gg-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- NEW RELEASE -->
+
+</header>
+<!-- HEADER -->
+                <!-- NAVIGATION CONTENT -->
+                <%- include('tags/menu-content') %>
+
+
+
+                    <div class="xdddd" style="display: flex; gap: 40px;">
+                        
+                        <div class="">
+                            <% images.forEach(image=> { %>
+                                <img src="<%= image.url %>" alt="image.description" srcset=""
+                                    style="width: 250px; border-radius: 30px;">
+                                <% }); %>
+                                <ul style="color: white; width: 220px;" >
+                                    <li>Nombre: <%= product.name %>
+                                    </li>
+                                    <li>Descripcion: <%= product.description %>
+                                    </li>
+                                    <li>Modelo: <%= product.model %>
+                                    </li>
+                                </ul>
+                        </div>
+
+                        <form action="/calificacion/<%= product.id %>" style="width: 300px;" method="POST">
+                            <label for="" style="color: white;">Puntua el producto</label>
+                            <select name="puntos" id="" style="width: 100%;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            
+                            
+                            <input type="submit" value="Enviar" class="submit">
+                        </form>
+
+
+                       
+                    </div>
+
+                    <!--.container {
+            width: 300px;
+            padding: 16px;
+            background-color: white;
+        }
+        input[type=text], input[type=number] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        input[type=text]:focus, input[type=number]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        .submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+        .submit:hover {
+            opacity:1;
+        }-->
+                    <%- include('tags/footer') %>
+
+</body>
+
+</html>

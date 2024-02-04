@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require('../../db/models');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
+const nodemailer = require('nodemailer')
+require('dotenv').config();
 
 rutaProtegida = async (req, res, next) => {
     if (req.cookies.jwt) {
@@ -42,39 +44,35 @@ rutaLoginBlock = async (req, res, next) => {
 
 
 
-
 router.get('/', (req, res) => {
     db.getProducts()
         .then(data => {
-            db.getImages()
-                .then(images => {
-                    db.getCategories()
-                        .then(categories => {
-                            res.render('home/index', { products: data, images: images, categories: categories });
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            res.render('home/index', { products: data, images: images, categories: [] });
-                        })
+            console.log(data)
+            db.getCategories()
+                .then(categories => {
+                    res.render('home/index', { products: data, images: data, categories: categories });
                 })
                 .catch(err => {
                     console.log(err);
-                    res.render('home/index', { products: data, images: [], categories: [] });
+                    res.render('home/index', { products: data, images: images, categories: [] });
                 })
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log(err);
             res.render('home/index', { products: [], images: [], categories: [] });
         })
-});
+})
 
-router.post('/filter',(req,res) => {
-    const { name } = req.body;
-    db.filterProduct(name).then(data => {
-        db.getCategories().then(categories => {
-            res.render('home/index', { products: data, images: data, categories:categories})
+
+router.post('/filter', (req, res) => {
+    const { name, puntos } = req.body;
+    db.filterProduct(name, puntos)
+        .then(data => {
+            db.getCategories().then(categories => {
+                res.render('home/index', { products: data, images: data, categories: categories })
+            })
+        }).catch(err => {
+            console.log(err)
         })
-    })
 })
 
 
@@ -167,10 +165,37 @@ router.post('/pay/:id', async (req, res) => {
         if (jsonData.success == true) {
             const token = await promisify(jwt.verify)(req.cookies.jwt, 'token');
             const cliente_id = token.id;
-            db.purchaseProduct(cliente_id,id,cantidad,total_pagado,fechaC,ipPaymentClient)
-            .then(() => {
-                res.redirect('/')
+            db.purchaseProduct(cliente_id, id, cantidad, total_pagado, fechaC, ipPaymentClient).then(() => {
+                db.getIDExists(id).then(dataid => {
+                    const transporter = nodemailer.createTransport({
+                        service: 'outlook',
+                        port: 587,
+                        tls: {
+                            ciphers: "SSLv3",
+                            rejectUnauthorized: false,
+                        },
+                        auth: {
+                            user: process.env.EMAIL,
+                            pass: process.env.PASSWORDCLIENT,
+                        },
+                    });
+                    const mailOptions = {
+                        from: process.env.EMAIL,
+                        to: dataid.email,
+                        subject: '¡Confirmacion de su compra!',
+                        html: '<h1>¡Hola, su transacción!</h1><p>Su compra ah finalizado correctamente, gracias por su compra!</p>' // html body
+                    };
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                })
+                res.redirect('/calificar/' + id);
             })
+
         }
     } catch (error) {
         console.log(error)
@@ -220,16 +245,124 @@ router.post('/registerclient', async (req, res) => {
                 else {
                     db.registerLogin(user, email, password)
                         .then(register => {
-                            console.log(`Usuario ${user} agregado`)
-                            res.redirect('/loginclient')
-                        })
-                        .catch(err => {
+                            const transporter = nodemailer.createTransport({
+                                service: 'outlook',
+                                port: 587,
+                                tls: {
+                                    ciphers: "SSLv3",
+                                    rejectUnauthorized: false,
+                                },
+                                auth: {
+                                    user: process.env.EMAIL,
+                                    pass: process.env.PASSWORDCLIENT,
+                                },
+                            });
+
+                            const mailOptions = {
+                                from: process.env.EMAIL,
+                                to: email,
+                                subject: '¡Bienvenido a nuestra página web!',
+                                html: '<h1>¡Hola!</h1><p>Bienvenido nuestra página web! Esperamos que disfrutes de tu experiencia aquí. Si necesitas ayuda, no dudes en ponerte en contacto con nosotros. ¡Gracias por registrarte!</p>'
+                            };
+
+                            transporter.sendMail(mailOptions, (error, info) => {
+                                if (error) {
+                                    console.log(error);
+                                  } else {
+                                    console.log('Email sent: ' + info.response);
+                                  }res.redirect('/loginclient');
+                            })
+                        })  .catch(err => {
                             console.log(err);
                         })
                 }
             })
     }
 })
+
+
+router.get('/calificacion/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    db.getProductID(id)
+        .then(data => {
+            db.getImagesID(id)
+                .then(images => {
+                    db.getCategories()
+                        .then(categories => {
+                            res.render('home/calificacion', { product: data, images: images, categories: categories });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.render('home/calificacion', { product: data, images: images, categories: [] });
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.render('home/calificacion', { product: data, images: [], categories: [] });
+                })
+        })
+        .catch(err => {
+            console.log(err);
+            res.render('home/calificacion', { product: [], images: [], categories: [] });
+        })
+});
+
+router.post('/calificacion/:id', async (req, res) => {
+    const { id } = req.params;
+    const { puntos } = req.body;
+    const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
+    const idclient = tokenAuthorized.id;
+    db.calificarProduct(id, idclient, puntos).then(data => {
+        res.redirect('/')
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
+
+
+router.post('recoverPassword', (req, res) => {
+    const { email } = req.body;
+    db.getEmailExists(email).then(data => {
+        if (data.length == 0) {
+            res.send('Email not exists')
+        } else {
+            const transporter = nodemailer.createTransport({
+                service: 'outlook',
+                port: 587,
+                tls: {
+                    ciphers: "SSLv3",
+                    rejectUnauthorized: false,
+                },
+                auth: {
+                    user: process.env.EMAILCLIENT,
+                    pass: process.env.PASSWORDCLIENT,
+                },
+            });
+
+            const mailOptions = {
+                from: userEmail,
+                to: email,
+                subject: 'Restablecimiento de contraseña',
+                html: `<h1>¡Hola!</h1><p>Correo:${email}</p><p>Contraseña:${data[0].password}`
+                // html body
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                    res.send('Se le envio un correo electronico!');
+                }
+            });
+        }
+
+    })
+})
+
+
 
 router.get('/loginclient', (req, res) => {
     res.render('home/loginclient')

@@ -1,7 +1,7 @@
 const db = require('./connection');
 
 let querys = {
-    getProducts: 'SELECT * FROM products',
+    getProducts: 'SELECT products.*, images.url, AVG(calificacion.puntos) as puntos FROM products LEFT JOIN images ON products.id = images.product_id LEFT JOIN calificacion ON products.id = calificacion.producto_id GROUP BY products.id;',
     getProductID: 'SELECT * FROM products WHERE id = ?',
     getImages: 'SELECT * FROM images',
     getImagesID: 'SELECT * FROM images WHERE product_id = ?',
@@ -15,10 +15,12 @@ let querys = {
     deleteImage: 'DELETE FROM images WHERE id = ?',
     getLogin: 'SELECT * FROM clients WHERE email = ? AND password = ?',
     registerLogin: "INSERT INTO clients(name,email,password) VALUES(?,?,?)",
+    getIDExists: "SELECT * FROM clients WHERE id = ?",
     getEmailExists: "SELECT * FROM clients WHERE email = ?",
     purchaseProduct : "INSERT INTO ventas(cliente_id,producto_id,cantidad,total_pagado,fecha,ip_cliente) VALUES(?,?,?,?,?,?)",
     clientsView: "SELECT products.*, clients.*, ventas.total_pagado, ventas.cantidad FROM products JOIN ventas ON products.id = ventas.producto_id JOIN clients ON clients.id = ventas.client_id;",
-    filterProduct : "SELECT products.*, images.url, FROM products LEFT JOIN images ON products.id = images.product_id WHERE products.name = ?"
+    filterProduct : "SELECT products.*, images.url, AVG(calificacion.puntos) as puntos FROM products LEFT JOIN images ON products.id = images.product_id LEFT JOIN calificacion ON products.id = calificacion.producto_id WHERE (products.name = ? OR calificacion.puntos = ?) GROUP BY products.id;",
+    calificarProduct : "INSERT INTO calificacion(producto_id,user_id,puntos) VALUES(?,?,?)"
 };
 
 module.exports = {
@@ -31,9 +33,29 @@ module.exports = {
         })
     },
 
-    filterProduct(name){
-        new Promise((resolve, reject) => {
-            db.all(querys.filterProduct,[name],(err,rows) => {
+
+    calificarProduct(id, idclient, puntos) {
+        return new Promise((resolve, reject) => {
+            db.run(querys.calificarProduct,[id, idclient, puntos],(err,rows) => {
+                if(err) reject(err);
+                resolve(rows);
+            })
+        })
+    },
+
+
+    getIDExists(id) {
+        return new Promise((resolve, reject) => {
+            db.get(querys.getIDExists,[id],(err,rows) => {
+                if(err) reject(err);
+                resolve(rows);
+            })
+        })
+    },
+
+    filterProduct(name, puntos){
+        return new Promise((resolve, reject) => {
+            db.all(querys.filterProduct,[name, puntos],(err,rows) => {
                 if(err) reject(err);
                 resolve(rows);
             })
