@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoundPlex</title>
-    <%- include('home/tags/links') %>
+    <%- include('tags/links') %>
     <link rel="stylesheet" href="/stylesheets/home.css">
     <link rel="stylesheet" href="/stylesheets/login.css">
 </head>
@@ -13,7 +13,7 @@
 <body>
     <!-- MAIN CONTENT -->
     <main id="index-one">
-        <%- include('home/tags/preloader') %>
+        <%- include('tags/preloader') %>
         
         <header style="background: none;">
         
@@ -59,13 +59,13 @@
 
         <div class="new-release img text login">
         
-            <form action="/login" method="post">
+            <form action="/loginclient" method="post">
                 <label for="email">Correo</label>
                 <input type="email" name="email"  required>
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" required>
                 <input type="submit" value="Iniciar" class="mouse hover">
-                <a href="/register" class="sigin">Registrarse</a>
+                <a href="/registerclient" class="sigin">Registrarse</a>
 
             </form>
         
@@ -74,7 +74,7 @@
 
     </main>
 
-    <%- include('home/tags/footer') %>
+    <%- include('tags/footer') %>
 
 </body>
 

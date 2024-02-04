@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundPlex | Comprar</title>
+    <%- include('tags/links') %>
+        <link rel="stylesheet" href="/stylesheets/home.css">
+        <link rel="stylesheet" href="/stylesheets/admin.css">
+        <style>
+            .container {
+                width: 300px;
+                padding: 16px;
+                background-color: white;
+            }
+
+            input[type=text],
+            input[type=number] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                background: #f1f1f1;
+            }
+
+            input[type=text]:focus,
+            input[type=number]:focus {
+                background-color: #ddd;
+                outline: none;
+            }
+
+            .submit {
+                background-color: #4CAF50;
+                color: white;
+                padding: 16px 20px;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                opacity: 0.9;
+            }
+
+            .submit:hover {
+                opacity: 1;
+            }
+        </style>
+</head>
+
+<body>
+    <!-- MAIN CONTENT -->
+    <main id="index-one">
+
+        <!-- PRELOADER -->
+        <%- include('tags/preloader') %>
+            <!-- HEADER -->
+            <%- include('tags/header-nav') %>
+                <!-- NAVIGATION CONTENT -->
+                <%- include('tags/menu-content') %>
+
+
+
+                    <div class="xdddd" style="display: flex; gap: 40px;">
+                        
+                        <div class="">
+                            <% images.forEach(image=> { %>
+                                <img src="<%= image.url %>" alt="image.description" srcset=""
+                                    style="width: 250px; border-radius: 30px;">
+                                <% }); %>
+                                <ul style="color: white; width: 220px;" >
+                                    <li>Nombre: <%= product.name %>
+                                    </li>
+                                    <li>Descripcion: <%= product.description %>
+                                    </li>
+                                    <li>Modelo: <%= product.model %>
+                                    </li>
+                                    <li>Cantidad: <%= product.count %>
+                                    </li>
+                                    <li>Precio: <%= product.price %>
+                                    </li>
+                                </ul>
+                        </div>
+
+                        <form action="/pay/<%= product.id %>" style="width: 300px;">
+                            <label for="ccnum">Número de tarjeta de crédito</label>
+                            <input type="text" id="ccnum" name="tarjeta" required>
+                            <label for="expmonth">Mes de vencimiento</label>
+                            <input type="text" id="expmonth" name="mes" required>
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Año de vencimiento</label>
+                                    <input type="number" id="expyear" name="ano" required>
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" required>
+                                </div>
+                                <input type="hidden" value="<%= product.price %>" name="precio">
+                                <input type="hidden" value="<%= product.price %>" name="cantidad">
+                            </div>
+                            <input type="submit" value="Enviar" class="submit">
+                        </form>
+
+
+                       
+                    </div>
+
+                    <!--.container {
+            width: 300px;
+            padding: 16px;
+            background-color: white;
+        }
+        input[type=text], input[type=number] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        input[type=text]:focus, input[type=number]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        .submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+        .submit:hover {
+            opacity:1;
+        }-->
+                    <%- include('tags/footer') %>
+
+</body>
+
+</html>

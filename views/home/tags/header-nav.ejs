@@ -16,15 +16,7 @@
                     <li id="category"><a href="#all">Todos</a></li>
                 </ul>
             </div>
-            <div style="
-            width: 300px;
-            height: 38px;
-        ">
-                <div class="container">
-                    <input type="text" placeholder="Buscar...">
-                    <div class="search"></div>
-                </div>
-            </div>
+           
         </div>
         <div class="menu-bar hover" style="justify-content: space-around; width: 30%;">
             <div class="menu-bar-name text" style="width: 100%;">
@@ -44,16 +36,32 @@
         </div>
     </nav>
     <!-- NAVIGATION -->
-
+    
     <!-- HEADPHONE IMG -->
     <div class="headphone img text">
         <img src="/images/headphone.png" class="text" alt="headphone">
     </div>
     <!-- HEADPHONE IMG -->
+<div class="new-release" style="position: fixed; top:20%; left: 1%; height: 150px;">
+    <form action="/filter" method="POST">
+    <div style="
+        width: 300px;
+        height: 38px;
+    ">
+        <p>Buscar productos</p>
+        <br>
+        <p>Nombre</p>
+        <div class="xddddd" style="display: flex; flex-direction: column; width: 210px; gap: 5px;">
+        <input type="text" name="name" style="border: 0; padding: .15rem; border-radius: 3px;">
+        <button>Enviar</button>
+    </div>
+        </div>
+    </form>
+        
+</div>
 
-    <!-- NEW RELEASE -->
-    <div class="new-release img text">
-
+<div class="new-release img text">
+        
         <button class="close hover" type="button">X</button>
         <img src="/images/album-thumbnail-one.jpg" alt="new-release">
         <div class="song-details">

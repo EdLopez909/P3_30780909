@@ -8,9 +8,10 @@
         <link rel="stylesheet" href="/stylesheets/home.css">
     </head>
 <body>
+    
     <!-- MAIN CONTENT -->
     <main id="index-one">
-
+        
         <!-- PRELOADER -->
         <%- include('tags/preloader') %>
         <!-- HEADER -->
@@ -23,6 +24,7 @@
             </div>
         </nav>
         <section class="center" style="padding: 20px 0;">
+            
             <div class="container-cards">
         
                 <% products.forEach(product => { %>
@@ -40,14 +42,13 @@
                             
                         <% }); %>
                     </div>
-        
                     <div class="song-details">
                         <div class="song-details-content">
                             <div class="song-name description"><%= product.name %></div>
                         </div>
                         <div class="desc">
                             <div class="download-song mouse btn-buy hover">
-                                <a href="#"><i class="fi fi-sr-play"></i><%= product.price %>$</a>
+                                <a href="/carrito/<%= product.id %>"><i class="fi fi-sr-play"></i><%= product.price %>$</a>
                             </div>
                         </div>
                     </div>
@@ -56,8 +57,6 @@
             </div>
         </section>
     </main>
-    
     <%- include('tags/footer') %>
-
 </body>
 </html>
